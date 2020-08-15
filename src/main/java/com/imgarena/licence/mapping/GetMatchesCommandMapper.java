@@ -5,7 +5,7 @@ import com.imgarena.licence.domain.SummaryType;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RequestMatchesCommandMapper {
+public class GetMatchesCommandMapper {
     public GetMatchesCommand map(long customerId, String summaryType) {
         return GetMatchesCommand.builder()
                 .customerId(customerId)
