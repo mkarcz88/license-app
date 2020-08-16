@@ -12,3 +12,6 @@ GET http://localhost:8080/match/10?summaryType=AvBTime
 
 GET http://localhost:8080/match/20?summaryType=AvB
 GET http://localhost:8080/match/20?summaryType=AvBTime
+
+To make it as simple as possible I didn't implement different response/status code when user does not exist.
+When use has 0 subscription or does not exist I return empty response with 200.

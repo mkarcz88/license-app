@@ -7,7 +7,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -19,10 +19,10 @@ class LicenceAppTest {
     @Test
     void contextLoads() {
         assertTrue(restTemplate.getForEntity("/match/111", List.class).getStatusCode().is2xxSuccessful());
-        assertTrue(restTemplate.getForEntity("/match/111", List.class).getBody().isEmpty());
+        assertThat(restTemplate.getForEntity("/match/111", List.class).getBody()).isEmpty();
 
         assertTrue(restTemplate.getForEntity("/match/10", List.class).getStatusCode().is2xxSuccessful());
-        assertFalse(restTemplate.getForEntity("/match/10", List.class).getBody().isEmpty());
+        assertThat(restTemplate.getForEntity("/match/10", List.class).getBody()).isNotEmpty();
     }
 
 }
