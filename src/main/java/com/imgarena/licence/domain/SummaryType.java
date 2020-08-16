@@ -1,6 +1,7 @@
 package com.imgarena.licence.domain;
 
 public enum SummaryType {
+
     AvB, AvBTime;
 
     public static SummaryType build(String summaryType) {
@@ -10,4 +11,5 @@ public enum SummaryType {
             return AvB; //default value
         }
     }
+
 }

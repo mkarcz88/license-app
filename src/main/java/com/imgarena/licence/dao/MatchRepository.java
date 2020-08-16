@@ -11,15 +11,18 @@ import java.util.List;
 @Repository
 public class MatchRepository {
 
+    private final JdbcTemplate jdbcTemplate;
+
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public MatchRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<Match> findByCustomerId(long customerId) {
+        BeanPropertyRowMapper<Match> rowMapper = new BeanPropertyRowMapper<>(Match.class);
         return jdbcTemplate.query("SELECT * from matches m " +
-                        "LEFT JOIN licenses l ON (m.matchId = l.matchId) " +
-                        "WHERE l.customerId=?", new Object[]{
-                        customerId
-                },
-                new BeanPropertyRowMapper<>(Match.class));
+                "LEFT JOIN licenses l ON (m.matchId = l.matchId) " +
+                "WHERE l.customerId=?", rowMapper, customerId);
     }
+
 }

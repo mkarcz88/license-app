@@ -15,8 +15,12 @@ import static java.lang.Math.abs;
 @Component
 public class SummaryMapper {
 
+    private final TimeProvider timeProvider;
+
     @Autowired
-    public TimeProvider timeProvider;
+    public SummaryMapper(TimeProvider timeProvider) {
+        this.timeProvider = timeProvider;
+    }
 
     public String map(SummaryType summaryType, Match match) {
         if (AvBTime.equals(summaryType)) {
@@ -41,4 +45,5 @@ public class SummaryMapper {
             return createShortDescription(match) + ", started " + minutes + " minutes ago";
         }
     }
+
 }

@@ -2,7 +2,6 @@ package com.imgarena.licence.service;
 
 import com.imgarena.licence.dao.MatchRepository;
 import com.imgarena.licence.domain.Match;
-import com.imgarena.licence.domain.GetMatchesCommand;
 import com.imgarena.licence.domain.SummaryType;
 import com.imgarena.licence.mapping.SummaryMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,11 +38,6 @@ public class LicenseServiceTest {
     private static final LocalDateTime START_DATE = LocalDateTime.now();
     private static final String EXPECTED_SUMMARY = PLAYER1 + " vs " + PLAYER2;
 
-    private GetMatchesCommand requestLicensedMatchesCommand = GetMatchesCommand.builder()
-            .customerId(CUSTOMER_ID)
-            .summaryType(SummaryType.AvB)
-            .build();
-
     private Match match1 = Match.builder().matchId(MATCH_ID_1)
             .startDate(START_DATE)
             .playerA(PLAYER1)
@@ -67,7 +61,7 @@ public class LicenseServiceTest {
     private List<Match> matches;
 
     @BeforeEach
-    public void init() {
+    void init() {
         matches = asList(match1, match2);
 
         when(matchRepository.findByCustomerId(CUSTOMER_ID)).thenReturn(matches);
@@ -76,8 +70,8 @@ public class LicenseServiceTest {
     }
 
     @Test
-    public void fetchMatches() {
-        List<Match> matches = licenseService.fetchLicensedMatches(requestLicensedMatchesCommand);
+    void fetchMatches() {
+        List<Match> matches = licenseService.fetchLicensedMatches(CUSTOMER_ID, SummaryType.AvB);
         assertThat(matches.size()).isEqualTo(2);
         assertThat(matches).containsExactlyInAnyOrder(expectedMatch1, expectedMatch2);
     }
