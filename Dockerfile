@@ -1,7 +1,9 @@
-FROM openjdk:8-jdk-alpine
-
+FROM maven:3.5.2-jdk-8-alpine AS MAVEN_BUILD
+COPY pom.xml /build/
+COPY src /build/src/
+WORKDIR /build/
+RUN mvn package
+FROM openjdk:8-jre-alpine
 WORKDIR /app
-
-COPY target/licence-app*.jar app.jar
-
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY --from=MAVEN_BUILD /build/target/licence-app*.jar /app/app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
