@@ -23,9 +23,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Build with Maven
-        run: mvn clean verify
-
       - name: Checkout
         uses: actions/checkout@master
 
@@ -35,6 +32,7 @@ jobs:
 
       - name: Build and tag the image
         run: |
+          mvn clean verify
           docker build \
             -t $CONTAINER_IMAGE \
             -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$CONTAINER_IMAGE .
