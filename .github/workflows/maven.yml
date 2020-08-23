@@ -33,7 +33,7 @@ jobs:
           ECR_REPOSITORY: license-repo
           IMAGE_TAG: latest
         run: |
-            $(aws ecr get-login --region us-east-1 --no-include-email)
+            eval $(aws ecr get-login | sed 's|https://||')
             docker build -t license-repo .
             docker tag license-repo:latest 379879511856.dkr.ecr.eu-west-1.amazonaws.com/license-repo:latest
             docker push 379879511856.dkr.ecr.eu-west-1.amazonaws.com/license-repo:latest
