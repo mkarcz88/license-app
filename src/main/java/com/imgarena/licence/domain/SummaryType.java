@@ -8,7 +8,7 @@ public enum SummaryType {
         try {
             return SummaryType.valueOf(summaryType);
         } catch (IllegalArgumentException | NullPointerException e) {
-            return AvB; //default value
+            return AvB;
         }
     }
 
